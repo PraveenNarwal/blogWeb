@@ -1,7 +1,7 @@
 import Head from "next/head";
 import styles from "../styles/Home.module.css";
 import { PostCard, Categories, PostWidget } from "../components";
-
+import { getPosts } from "../services";
 const posts = [
   { title: "React Testing", excerpt: "Learn React Testing" },
   { title: "React with Tailwind", excerpt: "Learn React with Tailwind" },
@@ -28,4 +28,11 @@ export default function Home() {
       </div>
     </div>
   );
+}
+
+export async function getStaticProps() {
+  const posts = (await getPosts()) || [];
+  return {
+    props: { posts },
+  };
 }
